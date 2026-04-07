@@ -11,7 +11,7 @@ binaries_all = []
 hidden_all  = []
 
 # Collect all data / binaries / hidden imports from heavy ML packages
-for pkg in ['torch', 'torchaudio', 'demucs', 'audio_separator']:
+for pkg in ['torch', 'torchaudio', 'demucs', 'audio_separator', 'imageio_ffmpeg']:
     try:
         d, b, h = collect_all(pkg)
         datas_all   += d

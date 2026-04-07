@@ -21,7 +21,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install --upgrade pip
-          pip install flask audio-separator onnxruntime pyinstaller
+          pip install flask audio-separator onnxruntime imageio-ffmpeg pyinstaller
 
       - name: Build Python sidecar
         working-directory: python
@@ -63,7 +63,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install flask audio-separator onnxruntime pyinstaller
+          pip install flask audio-separator onnxruntime imageio-ffmpeg pyinstaller
 
       - name: Build Python sidecar
         working-directory: python
