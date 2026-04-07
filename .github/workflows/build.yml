@@ -44,11 +44,13 @@ jobs:
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: 4-stem-mac
-          path: dist/*.dmg
-          retention-days: 30
+      - name: Publish to GitHub Release
+        run: |
+          TAG="${{ github.ref_name }}"
+          gh release create "$TAG" --title "4-Stem $TAG" --notes "AI 4-Stem Audio Separator — Mac + Windows" 2>/dev/null || true
+          gh release upload "$TAG" dist/*.dmg --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build-win:
     runs-on: windows-latest
@@ -81,8 +83,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: 4-stem-win
-          path: dist/*.exe
-          retention-days: 30
+      - name: Publish to GitHub Release
+        run: |
+          $TAG = "${{ github.ref_name }}"
+          gh release create $TAG --title "4-Stem $TAG" --notes "AI 4-Stem Audio Separator — Mac + Windows" 2>$null
+          gh release upload $TAG (Get-ChildItem dist\*.exe).FullName --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
