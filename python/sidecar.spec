@@ -4,11 +4,20 @@ PyInstaller spec for the 4-Stem Flask sidecar.
 Run from the python/ directory:
     pyinstaller sidecar.spec
 """
+import shutil
 from PyInstaller.utils.hooks import collect_all, collect_submodules
 
 datas_all   = []
 binaries_all = []
 hidden_all  = []
+
+# Bundle the ffmpeg binary (installed by brew/choco in CI)
+_ffmpeg = shutil.which('ffmpeg')
+if _ffmpeg:
+    print(f"[spec] Bundling ffmpeg from: {_ffmpeg}")
+    binaries_all += [(_ffmpeg, '.')]
+else:
+    print("[spec] WARNING: ffmpeg not found in PATH — separation will fail!")
 
 # Collect all data / binaries / hidden imports from heavy ML packages
 for pkg in ['torch', 'torchaudio', 'demucs', 'audio_separator', 'imageio_ffmpeg']:
