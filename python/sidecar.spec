@@ -14,7 +14,7 @@ hidden_all  = []
 # Bundle the ffmpeg binary staged by CI into python/bin/
 import sys as _sys
 _ffmpeg_name = 'ffmpeg.exe' if _sys.platform == 'win32' else 'ffmpeg'
-_ffmpeg_staged = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bin', _ffmpeg_name)
+_ffmpeg_staged = os.path.join(os.getcwd(), 'bin', _ffmpeg_name)
 if os.path.exists(_ffmpeg_staged):
     print(f"[spec] Bundling staged ffmpeg: {_ffmpeg_staged}")
     binaries_all += [(_ffmpeg_staged, '.')]
