@@ -2,7 +2,7 @@
  * main.js — Electron main process for 4-Stem
  */
 
-const { app, BrowserWindow, ipcMain, dialog, nativeImage } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog, nativeImage, Menu } = require("electron");
 app.commandLine.appendSwitch("disable-features", "AudioServiceOutOfProcess,AudioServiceLaunchOnStartup");
 
 const path = require("path");
@@ -139,6 +139,7 @@ async function createWindow() {
 // ─── App lifecycle ────────────────────────────────────────────────────────────
 
 app.whenReady().then(async () => {
+  Menu.setApplicationMenu(null);
   if (process.platform === "darwin") {
     app.dock.setIcon(nativeImage.createFromPath(path.join(__dirname, "assets", "icon.png")));
   }
